@@ -1,17 +1,82 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab 1
+      Matches
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-buttons class="dates">
+    <ion-button fill="outline" color="primary" (click)="changeDate(dates[0])" slot="start">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <div *ngFor="let date of dates" class="md-date">
+      <ion-button color="primary" (click)="getMatches(date)">
+        {{date}}
+      </ion-button>
+    </div>
+    <div class="sm-date">
+      <ion-button color="primary">
+        {{dates[1]}}
+      </ion-button>
+    </div>
+    <ion-button fill="outline" color="primary" (click)="changeDate(dates[2])" slot="end">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div class="content">
+    <div *ngIf="loading" class="spinner">
+      <ion-spinner color="primary"></ion-spinner>
+      <h1 class="mat-display-1">Getting Matches</h1>
+    </div>
+    <h1 class="mat-display-1" *ngIf="results.length === 0 && !loading">There's no result for <br> {{selectedDate}}</h1>
+    <ion-segment *ngIf="results.length > 0 && !loading" (ionChange)="segmentChanged($event)" value="ATP">
+      <ion-segment-button value="ATP">
+        <ion-label>ATP</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="WTA">
+        <ion-label>WTA</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div class="result" *ngFor="let result of results">
+      <div class="tournament">
+        <h1>
+          {{result.tournament.name}}
+        </h1>
+        <h3>
+          {{result.tournament.city}}, {{result.tournament.country}}
+        </h3>
+      </div>
+      <ion-card class="match" *ngFor="let match of result.matches">
+        <p class="match-time">
+          {{formatTime(match.date)}}
+          <span class="match-notstarted" *ngIf="match.status === 'notstarted'">Not Started</span>
+          <span class="match-inprogress" *ngIf="match.status === 'inprogress'">In Progress</span>
+          <span class="match-finished" *ngIf="match.status === 'finished'">Finished</span>
+        </p>
+        <p class="match-result">
+          <span class="player-name">{{match.home_player}}</span><span class="match-winner"
+            *ngIf="match.status === 'finished' && match?.result?.winner_id === match?.home_id">Winner</span>
+          <span class="spacer"></span>
+          <span class="score">{{match?.result?.home_set1}}<sup>{{match?.result?.home_tb1}}</sup></span>
+          <span class="score">{{match?.result?.home_set2}}<sup>{{match?.result?.home_tb2}}</sup></span>
+          <span class="score">{{match?.result?.home_set3}}<sup>{{match?.result?.home_tb3}}</sup></span>
+          <span class="score">{{match?.result?.home_set4}}<sup>{{match?.result?.home_tb4}}</sup></span>
+          <span class="score">{{match?.result?.home_set5}}<sup>{{match?.result?.home_tb5}}</sup></span>
+        </p>
+        <p class="match-result">
+          <span class="player-name">{{match.away_player}}</span><span class="match-winner"
+            *ngIf="match.status === 'finished' && match?.result?.winner_id === match?.away_id">Winner</span>
+          <span class="spacer"></span>
+          <span class="score">{{match?.result?.away_set1}}<sup>{{match?.result?.away_tb1}}</sup></span>
+          <span class="score">{{match?.result?.away_set2}}<sup>{{match?.result?.away_tb2}}</sup></span>
+          <span class="score">{{match?.result?.away_set3}}<sup>{{match?.result?.away_tb3}}</sup></span>
+          <span class="score">{{match?.result?.away_set4}}<sup>{{match?.result?.away_tb4}}</sup></span>
+          <span class="score">{{match?.result?.away_set5}}<sup>{{match?.result?.away_tb5}}</sup></span>
+        </p>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>

@@ -1,17 +1,37 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab 2
+      Tournaments
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div *ngIf="loading" class="spinner">
+    <ion-spinner color="primary"></ion-spinner>
+    <h1 class="mat-display-1">Getting Tournaments</h1>
+  </div>
+  <div class="tournament" *ngIf="!loading">
+    <ion-card class="tour-card" *ngFor="let tour of tournaments">
+      <ion-card-header>
+        <ion-card-title>
+          {{tour.name}}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{tour.city}}, {{tour.country}}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="tour-detail">
+          Start date: {{formatDate(tour.start_date)}}
+        </p>
+        <p class="tour-detail">
+          End date: {{formatDate(tour.end_date)}}
+        </p>
+        <p class="tour-detail">
+          Surface: {{tour.surface}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

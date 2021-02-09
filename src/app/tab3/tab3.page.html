@@ -1,17 +1,45 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab 3
+      Rankings
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div *ngIf="loading" class="spinner">
+    <ion-spinner color="primary"></ion-spinner>
+    <h1 class="mat-display-1">Getting Rankings</h1>
+  </div>
+  <div class="rankings">
+    <table mat-table [dataSource]="rankings" class="mat-elevation-z8" *ngIf="!loading">
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+      <!-- Ranking Column -->
+      <ng-container matColumnDef="ranking">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let player"> {{player.ranking}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let player">{{player.full_name}}</td>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> Country </th>
+        <td mat-cell *matCellDef="let player"> {{player.country}} </td>
+      </ng-container>
+
+      <!-- Point Column -->
+      <ng-container matColumnDef="points">
+        <th mat-header-cell *matHeaderCellDef> Points </th>
+        <td mat-cell *matCellDef="let player">{{player.ranking_points}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
 </ion-content>

@@ -1,0 +1,103 @@
+@media (max-width: 500px) {
+  .md-date {
+    display: none;
+  }
+}
+
+@media (min-width: 500px) {
+  .sm-date {
+    display: none;
+  }
+}
+
+.content {
+  overflow: auto;
+  height: 90vh;
+}
+
+.dates {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+h1 {
+  margin: 0;
+}
+
+sup {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+.view {
+  margin: 1rem;
+  font-size: 1rem;
+}
+
+.mat-display-1 {
+  text-align: center;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
+
+ion-spinner {
+  margin-bottom: 2rem;
+}
+
+.result {
+  margin: 0 2rem 2rem;
+}
+
+.tournament {
+  margin-top: 1rem;
+}
+
+.match {
+  margin-bottom: 1rem;
+}
+
+.match-time {
+  margin: 1rem;
+  color: #777;
+}
+
+.match-notstarted {
+  color: #000;
+}
+
+.match-inprogress {
+  color: darkgoldenrod;
+}
+
+.match-finished {
+  color: darkgreen;
+}
+
+.match-result {
+  display: flex;
+}
+
+.player-name {
+  margin-left: 1rem;
+}
+
+.match-winner {
+  margin-left: 10px;
+  color: green;
+}
+
+.score {
+  margin-right: 10px;
+}
