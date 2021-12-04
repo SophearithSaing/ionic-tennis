@@ -1,6 +1,6 @@
 {
   "appId": "com.sophearith.tennis",
-  "appName": "tennis",
+  "appName": "Tennis",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
